@@ -1,9 +1,8 @@
 
+
 from rest_framework import serializers
 
-from accounts.models import User
-
-
+from accounts.models import User,TrainerProfile
 
 class TrainerSerializer(serializers.ModelSerializer):
 
@@ -11,8 +10,26 @@ class TrainerSerializer(serializers.ModelSerializer):
 
         model=User
 
-        fields=["id","name","email","passowrd","phone","dob"]
+        fields=["id","username","password","email","phone","role"]
+
+        read_only_fields=["id","role"]
 
     def create(self, validated_data):
-        
-        return User.objects.create_user(**validated_data)
+
+        return User.objects.create_user(**validated_data,role="tutor")
+
+class TrainerProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model=TrainerProfile
+
+        fields="__all__"
+
+        read_only_fields=["id","user","created_at","updated_at"]
+
+
+  
+
+
+

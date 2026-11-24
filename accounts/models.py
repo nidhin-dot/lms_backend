@@ -56,5 +56,13 @@ def create_trainer_profile(sender,instance,created,**kwargs):
 
         TrainerProfile.objects.create(user=instance)
 
+def Create_student_profile(sender,instance,created,**Kwargs):
+
+    if created and instance.role=="student":
+
+        StudentProfile.objects.create(user=instance)
+
 
 post_save.connect(create_trainer_profile,sender=User)
+
+post_save.connect(Create_student_profile,sender=User)
